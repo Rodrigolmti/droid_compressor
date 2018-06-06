@@ -27,13 +27,6 @@ class FileLoader internal constructor(private val context: Context) {
         getExecutorService()?.execute(FolderLoadRunnable(listener))
     }
 
-    fun abortLoadImages() {
-        if (executorService != null) {
-            executorService!!.shutdown()
-            executorService = null
-        }
-    }
-
     private fun getExecutorService(): ExecutorService? {
         if (executorService == null) {
             executorService = Executors.newSingleThreadExecutor()
@@ -91,8 +84,11 @@ class FileLoader internal constructor(private val context: Context) {
                 val files = folder.listFiles { _, name -> name?.endsWith(".jpg")!! || name.endsWith(".jpeg") || name.endsWith(".png") }
                 if (files.isNotEmpty()) {
                     for (file in files) {
-                        images.add(Image(0L, file.name, file.path, Date()))
+                        if (file.isFile && file.exists()) {
+                            images.add(Image(0L, file.name, file.path, Date(file.lastModified())))
+                        }
                     }
+                    images.sortedWith(compareBy({ it.id }, { it.date }))
                 }
             } else {
                 val projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.TITLE, MediaStore.Images.Media.DATA)

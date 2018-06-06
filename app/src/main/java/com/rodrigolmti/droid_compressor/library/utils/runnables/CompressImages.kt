@@ -18,13 +18,6 @@ class CompressImages internal constructor(private val context: Context) {
         getExecutorService()?.execute(CompressImageRunnable(listener))
     }
 
-    fun abortLoadImages() {
-        if (executorService != null) {
-            executorService!!.shutdown()
-            executorService = null
-        }
-    }
-
     private fun getExecutorService(): ExecutorService? {
         if (executorService == null) {
             executorService = Executors.newSingleThreadExecutor()
