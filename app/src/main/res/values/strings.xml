@@ -2,7 +2,11 @@
 
     <string name="app_name">Droid Compressor</string>
 
+    <string name="something_wrong_error">Something went wrong, try again later!</string>
+
     <string name="layout_empty">Empty</string>
+
+    <string name="activity_main_pictures_path">Images path: /Pictures/DroidCompressor</string>
 
     <string name="activity_main_device_folders">Device folders</string>
     <string name="activity_main_images_selected">Images selected</string>
@@ -10,15 +14,23 @@
 
     <string name="activity_images_subtitle">Select your images!</string>
 
+    <string name="activity_compressed_title">Compressed images</string>
+    <string name="activity_compressed_delete_message">Are you sure you want to delete? After you cannot undo this operation!</string>
+    <string name="activity_compressed_delete_message_success">The selected images are been deleted!</string>
+    <string name="activity_compressed_delete_error">select at least one image to delete!</string>
+
     <string name="activity_compress_title">Compress images</string>
     <string name="activity_main_compress_confirmation">Are you sure you want to compress these selected images? After the process will be create new images, the selected images will continue sharp!</string>
     <string name="activity_compress_minimum_images">Select at least one image to share!</string>
     <plurals name="image_number">
         <item quantity="zero">None image selected!</item>
         <item quantity="one">1 Image selected!</item>
+        <item quantity="few">%1$d Images selected!</item>
+        <item quantity="many">%1$d Images selected!</item>
         <item quantity="other">%1$d Images selected!</item>
     </plurals>
 
     <string name="menu_share_images">Share images</string>
+    <string name="menu_delete_images">Delete</string>
 
 </resources>

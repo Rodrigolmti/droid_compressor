@@ -40,17 +40,16 @@ class CompressImages internal constructor(private val context: Context) {
     }
 
     private fun compressImages(listener: CompressLoadListener) {
-        val compressedImages: MutableList<Image> = ArrayList()
         try {
+            val compressedImages: MutableList<Image> = ArrayList()
             for (image in SelectedImagesManager.images) {
                 compressedImages.add(Image(image.id, image.name, BitmapHelper.compressImage(context,
                         Uri.parse(image.path).path), Date()))
             }
             listener.onImageCompressed(compressedImages)
-
         } catch (error: Exception) {
-            error.printStackTrace()
+            listener.onError()
+            error.stackTrace
         }
-        listener.onError()
     }
 }

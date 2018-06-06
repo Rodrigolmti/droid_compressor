@@ -11,6 +11,7 @@ import com.rodrigolmti.droid_compressor.library.entity.Folder
 import com.rodrigolmti.droid_compressor.library.entity.Image
 import com.rodrigolmti.droid_compressor.library.extensions.gone
 import com.rodrigolmti.droid_compressor.library.extensions.visible
+import com.rodrigolmti.droid_compressor.library.utils.DialogHelper
 import kotlinx.android.synthetic.main.activity_images.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_loading.*
@@ -59,6 +60,7 @@ class ImagesActivity : BaseActivity<ImagesActivityContract.View, ImagesActivityC
     }
 
     override fun onError() {
+        DialogHelper.displayMessage(this, getString(R.string.something_wrong_error), null)
     }
 
     override fun itemOnClick(item: Image) {

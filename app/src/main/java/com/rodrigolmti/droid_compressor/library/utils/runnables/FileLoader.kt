@@ -1,12 +1,16 @@
 package com.rodrigolmti.droid_compressor.library.utils.runnables
 
 import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import com.rodrigolmti.droid_compressor.library.entity.Folder
 import com.rodrigolmti.droid_compressor.library.entity.Image
 import com.rodrigolmti.droid_compressor.library.listener.FolderLoaderListener
 import com.rodrigolmti.droid_compressor.library.listener.ImageLoaderListener
-import java.util.ArrayList
+import java.io.File
+import java.io.FilenameFilter
+import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -15,7 +19,7 @@ class FileLoader internal constructor(private val context: Context) {
     private val imagesUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
     private var executorService: ExecutorService? = null
 
-    fun loadDeviceImages(folder: Folder, listener: ImageLoaderListener) {
+    fun loadDeviceImages(folder: Folder?, listener: ImageLoaderListener) {
         getExecutorService()?.execute(ImageLoadRunnable(folder, listener))
     }
 
@@ -44,10 +48,10 @@ class FileLoader internal constructor(private val context: Context) {
         }
     }
 
-    private inner class ImageLoadRunnable internal constructor(private val folder: Folder, private val listener: ImageLoaderListener) : Runnable {
+    private inner class ImageLoadRunnable internal constructor(private val folder: Folder?, private val listener: ImageLoaderListener) : Runnable {
 
         override fun run() {
-            listener.onImageLoaded(getImagesByFolder(folder.bucketId))
+            listener.onImageLoaded(getImagesByFolder(folder?.bucketId ?: ""))
         }
     }
 
@@ -72,7 +76,7 @@ class FileLoader internal constructor(private val context: Context) {
             }
 
         } catch (error: Exception) {
-            error.printStackTrace()
+            error.stackTrace
         }
         return folders
     }
@@ -81,24 +85,33 @@ class FileLoader internal constructor(private val context: Context) {
         val images = ArrayList<Image>()
         try {
 
-            val projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.TITLE, MediaStore.Images.Media.DATA)
-            val cursor = MediaStore.Images.Media
-                    .query(context.contentResolver, imagesUri, projection,
-                            MediaStore.Images.Media.BUCKET_ID + " = ?", arrayOf(bucketId),
-                            MediaStore.Images.Media.DATE_ADDED + " DESC")
-            if (cursor.moveToFirst()) {
-                do {
+            if (bucketId.isEmpty()) {
+                val folder = File(Environment.getExternalStorageDirectory().path + "/Pictures/DroidCompressor")
+                folder.mkdirs()
+                val files = folder.listFiles { _, name -> name?.endsWith(".jpg")!! || name.endsWith(".jpeg") || name.endsWith(".png") }
+                if (files.isNotEmpty()) {
+                    for (file in files) {
+                        images.add(Image(0L, file.name, file.path, Date()))
+                    }
+                }
+            } else {
+                val projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.TITLE, MediaStore.Images.Media.DATA)
+                val cursor = MediaStore.Images.Media.query(context.contentResolver, imagesUri, projection,
+                        MediaStore.Images.Media.BUCKET_ID + " = ?", arrayOf(bucketId),
+                        MediaStore.Images.Media.DATE_ADDED + " DESC")
+                if (cursor.moveToFirst()) {
+                    do {
 
-                    images.add(Image.fromCursor(cursor))
+                        images.add(Image.fromCursor(cursor))
 
-                } while (cursor.moveToNext())
+                    } while (cursor.moveToNext())
+                }
+                cursor.close()
             }
-            cursor.close()
 
         } catch (error: Exception) {
-            error.printStackTrace()
+            error.stackTrace
         }
-
         return images
     }
 }

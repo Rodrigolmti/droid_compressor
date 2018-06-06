@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textColor="@color/black"
             tools:text="IMG_20185533442_88.png"/>
 
         <TextView

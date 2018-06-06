@@ -4,6 +4,6 @@ import com.rodrigolmti.droid_compressor.library.entity.Image
 
 interface ImageLoaderListener {
 
-    fun onImageLoaded(folders: List<Image>)
+    fun onImageLoaded(images: List<Image>)
 
 }

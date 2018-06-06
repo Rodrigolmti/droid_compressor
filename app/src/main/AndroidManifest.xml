@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".compressor.MainApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -22,7 +23,11 @@
         </activity>
         <activity android:name=".compressor.view.activity.images.ImagesActivity"/>
         <activity android:name=".compressor.view.activity.compress.CompressActivity"/>
+        <activity android:name=".compressor.view.activity.compressed.CompressedActivity"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8e67140fd2c7681126394c6ab6fdde10fa9ca734"/>
     </application>
 
 </manifest>

@@ -3,11 +3,13 @@ package com.rodrigolmti.droid_compressor.compressor.view.activity.main
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import com.rodrigolmti.droid_compressor.R
 import com.rodrigolmti.droid_compressor.compressor.manager.SelectedImagesManager
 import com.rodrigolmti.droid_compressor.compressor.view.activity.compress.CompressActivity
+import com.rodrigolmti.droid_compressor.compressor.view.activity.compressed.CompressedActivity
 import com.rodrigolmti.droid_compressor.compressor.view.activity.images.ImagesActivity
 import com.rodrigolmti.droid_compressor.compressor.view.adapter.FolderAdapter
 import com.rodrigolmti.droid_compressor.library.base.activity.BaseActivity
@@ -60,7 +62,7 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
         }
         emptyView.visible()
         recyclerView.gone()
-        fab.gone()
+        menuCompress.gone()
     }
 
     override fun setLoadingVisibility(visible: Boolean) {
@@ -74,6 +76,7 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
     }
 
     override fun onError() {
+        DialogHelper.displayMessage(this, getString(R.string.something_wrong_error), null)
     }
 
     override fun itemOnClick(item: Folder) {
@@ -112,12 +115,15 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
         mPresenter.loadFolderList(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.hasFixedSize()
-        fab.setOnClickListener({
+        menuHistoric.setOnClickListener({
+            startActivity(Intent(this, CompressedActivity::class.java))
+        })
+        menuCompress.setOnClickListener({
             DialogHelper.showConfirmation(this@MainActivity,
                     getString(R.string.activity_main_compress_confirmation),
                     getString(android.R.string.yes), Runnable {
                 startActivity(Intent(this, CompressActivity::class.java))
-            }, getString(android.R.string.no), Runnable { })
+            }, getString(android.R.string.no), null)
         })
     }
 
@@ -127,11 +133,11 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
             textViewCount.text = SelectedImagesManager.getImagesCount().toString()
             textViewImagesSize.text = getString(R.string.activity_main_images_size, count)
             textViewImagesSize.visible()
-            fab.visible()
+            menuCompress.visible()
         } else {
             textViewImagesSize.gone()
             textViewCount.text = "0"
-            fab.gone()
+            menuCompress.gone()
         }
     }
 }

@@ -15,7 +15,7 @@ class CompressActivityPresenter : BasePresenter<CompressActivityContract.View>()
 
             override fun onImageCompressed(images: List<Image>) {
                 runOnUiIfAvailable(Runnable {
-                    mView?.setLoadingVisibility(true)
+                    mView?.setLoadingVisibility(false)
                     SelectedImagesManager.clearSelectedImages()
                     mView?.onCompressingCompleted(images)
                 })

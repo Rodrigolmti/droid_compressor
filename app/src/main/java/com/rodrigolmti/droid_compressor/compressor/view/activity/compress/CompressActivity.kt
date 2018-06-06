@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_loading.*
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.content.ContextCompat.startActivity
-
 
 class CompressActivity : BaseActivity<CompressActivityContract.View, CompressActivityContract.Presenter>(), CompressActivityContract.View {
 
@@ -31,7 +29,7 @@ class CompressActivity : BaseActivity<CompressActivityContract.View, CompressAct
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.compressed_images_menu, menu)
+        menuInflater.inflate(R.menu.share_images_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -72,6 +70,7 @@ class CompressActivity : BaseActivity<CompressActivityContract.View, CompressAct
     }
 
     override fun onError() {
+        DialogHelper.displayMessage(this, getString(R.string.something_wrong_error), null)
     }
 
     private fun setup() {
@@ -91,15 +90,23 @@ class CompressActivity : BaseActivity<CompressActivityContract.View, CompressAct
     }
 
     private fun shareMultiple(images: List<Image>) {
-        val uris: ArrayList<Uri> = ArrayList()
-        for (image in images) {
-            uris.add(Uri.parse(image.path))
+        try {
+
+            val uris: ArrayList<Uri> = ArrayList()
+            for (image in images) {
+                uris.add(Uri.parse(image.path))
+            }
+            val shareIntent = if (uris.size == 1) {
+                Intent(android.content.Intent.ACTION_SEND)
+            } else {
+                Intent(android.content.Intent.ACTION_SEND_MULTIPLE)
+            }
+            shareIntent.type = "text/html"
+            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+            startActivity(Intent.createChooser(shareIntent, "Share Deal"))
+
+        } catch (error: Exception) {
+            error.stackTrace
         }
-        val intent = Intent()
-        intent.action = Intent.ACTION_SEND_MULTIPLE
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Here are some files.")
-        intent.type = "image/jpeg"
-        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-        startActivity(Intent.createChooser(intent, ""))
     }
 }
