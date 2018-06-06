@@ -12,7 +12,7 @@ import com.rodrigolmti.droid_compressor.library.extensions.gone
 import com.rodrigolmti.droid_compressor.library.extensions.visible
 import com.rodrigolmti.droid_compressor.library.utils.DateHelper
 import kotlinx.android.synthetic.main.row_image_compressed.view.*
-import java.util.ArrayList
+import java.util.*
 
 class ImageCompressedAdapter(private val context: Context, private val list: List<Image>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

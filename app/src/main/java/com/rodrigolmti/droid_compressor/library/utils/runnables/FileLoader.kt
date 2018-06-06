@@ -1,7 +1,6 @@
 package com.rodrigolmti.droid_compressor.library.utils.runnables
 
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import com.rodrigolmti.droid_compressor.library.entity.Folder
@@ -9,7 +8,6 @@ import com.rodrigolmti.droid_compressor.library.entity.Image
 import com.rodrigolmti.droid_compressor.library.listener.FolderLoaderListener
 import com.rodrigolmti.droid_compressor.library.listener.ImageLoaderListener
 import java.io.File
-import java.io.FilenameFilter
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

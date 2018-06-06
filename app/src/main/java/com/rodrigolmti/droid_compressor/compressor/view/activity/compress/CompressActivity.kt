@@ -1,5 +1,7 @@
 package com.rodrigolmti.droid_compressor.compressor.view.activity.compress
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -14,8 +16,6 @@ import com.rodrigolmti.droid_compressor.library.extensions.visible
 import com.rodrigolmti.droid_compressor.library.utils.DialogHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_loading.*
-import android.content.Intent
-import android.net.Uri
 
 class CompressActivity : BaseActivity<CompressActivityContract.View, CompressActivityContract.Presenter>(), CompressActivityContract.View {
 
@@ -96,13 +96,15 @@ class CompressActivity : BaseActivity<CompressActivityContract.View, CompressAct
             for (image in images) {
                 uris.add(Uri.parse(image.path))
             }
-            val shareIntent = if (uris.size == 1) {
-                Intent(android.content.Intent.ACTION_SEND)
+            val shareIntent = Intent()
+            if (uris.size == 1) {
+                shareIntent.action = Intent.ACTION_SEND
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(uris.first().path))
             } else {
-                Intent(android.content.Intent.ACTION_SEND_MULTIPLE)
+                shareIntent.action = Intent.ACTION_SEND_MULTIPLE
+                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
             }
-            shareIntent.type = "text/html"
-            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+            shareIntent.type = "image/jpeg"
             startActivity(Intent.createChooser(shareIntent, "Share Deal"))
 
         } catch (error: Exception) {

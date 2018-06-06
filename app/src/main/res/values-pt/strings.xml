@@ -1,0 +1,34 @@
+<resources>
+
+    <string name="app_name">Droid Compressor</string>
+
+    <string name="something_wrong_error">Algo esta errado, tente novamente mais tarde!</string>
+
+    <string name="layout_empty">Vazio</string>
+
+    <string name="activity_main_pictures_path">Caminho das imagens: /Pictures/DroidCompressor</string>
+
+    <string name="activity_main_device_folders">Pastas do dispositivo</string>
+    <string name="activity_main_images_selected">Imagens selecionadas</string>
+    <string name="activity_main_images_size">Tamanho total das imagens %1$s</string>
+
+    <string name="activity_images_subtitle">Selecione as imagens!</string>
+
+    <string name="activity_compressed_title">Imagens comprimidas</string>
+    <string name="activity_compressed_delete_message">Você tem certeza que deseja apagar? Após apagar as imagens não será possível visualizalas mais!</string>
+    <string name="activity_compressed_delete_message_success">Imagens pagadas com sucesso!</string>
+    <string name="activity_compressed_delete_error">Selecione pelo menos uma imagem para apagar!</string>
+
+    <string name="activity_compress_title">Imagens comprimidas</string>
+    <string name="activity_main_compress_confirmation">Você tem certeza que deseja comprimir estas imagens? Após a compressão será gerado novas imagens, onde as originais continuaram normais!</string>
+    <string name="activity_compress_minimum_images">Selecione pelo menos uma imagem para compartilhar!</string>
+    <plurals name="image_number">
+        <item quantity="zero">Nenhuma imagem selecionada!</item>
+        <item quantity="one">1 Imagem selecionada!</item>
+        <item quantity="other">%1$d Imagens selecionadas!</item>
+    </plurals>
+
+    <string name="menu_share_images">Compartilhar</string>
+    <string name="menu_delete_images">Deletar</string>
+
+</resources>

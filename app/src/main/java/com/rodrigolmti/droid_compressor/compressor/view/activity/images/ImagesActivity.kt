@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.rodrigolmti.droid_compressor.R
 import com.rodrigolmti.droid_compressor.compressor.manager.SelectedImagesManager
-import com.rodrigolmti.droid_compressor.compressor.view.component.GridSpacingItemDecoration
 import com.rodrigolmti.droid_compressor.compressor.view.adapter.ImageAdapter
+import com.rodrigolmti.droid_compressor.compressor.view.component.GridSpacingItemDecoration
 import com.rodrigolmti.droid_compressor.library.base.activity.BaseActivity
 import com.rodrigolmti.droid_compressor.library.entity.Folder
 import com.rodrigolmti.droid_compressor.library.entity.Image
