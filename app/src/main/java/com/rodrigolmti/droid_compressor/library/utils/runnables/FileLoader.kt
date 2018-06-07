@@ -3,8 +3,8 @@ package com.rodrigolmti.droid_compressor.library.utils.runnables
 import android.content.Context
 import android.os.Environment
 import android.provider.MediaStore
-import com.rodrigolmti.droid_compressor.library.entity.Folder
-import com.rodrigolmti.droid_compressor.library.entity.Image
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Folder
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
 import com.rodrigolmti.droid_compressor.library.listener.FolderLoaderListener
 import com.rodrigolmti.droid_compressor.library.listener.ImageLoaderListener
 import java.io.File
@@ -72,7 +72,7 @@ class FileLoader internal constructor(private val context: Context) {
         return folders
     }
 
-    private fun getImagesByFolder(bucketId: String): List<Image> {
+    private fun getImagesByFolder(bucketId: String = ""): List<Image> {
         val images = ArrayList<Image>()
         try {
 

@@ -1,4 +1,4 @@
-package com.rodrigolmti.droid_compressor.library.extensions
+package com.rodrigolmti.droid_compressor.library.utils.extensions
 
 import android.view.View
 

@@ -30,5 +30,7 @@
 
     <string name="menu_share_images">Share images</string>
     <string name="menu_delete_images">Delete</string>
+    <string name="activity_main_storage_permission">Droid Compressor need\'s permission to access your files to retrieve and save new images!</string>
+    <string name="activity_main_storage_permission_error">Droid compressor need\'s these permissions, enable on settings and came back!</string>
 
 </resources>

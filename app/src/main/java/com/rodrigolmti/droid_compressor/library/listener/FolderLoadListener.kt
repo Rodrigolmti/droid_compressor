@@ -1,6 +1,6 @@
 package com.rodrigolmti.droid_compressor.library.listener
 
-import com.rodrigolmti.droid_compressor.library.entity.Folder
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Folder
 
 interface FolderLoaderListener {
 

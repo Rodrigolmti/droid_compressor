@@ -1,6 +1,6 @@
 package com.rodrigolmti.droid_compressor.compressor.manager
 
-import com.rodrigolmti.droid_compressor.library.entity.Image
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
 import java.io.File
 import java.text.DecimalFormat
 import java.util.*

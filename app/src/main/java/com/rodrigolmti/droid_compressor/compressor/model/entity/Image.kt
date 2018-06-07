@@ -1,4 +1,4 @@
-package com.rodrigolmti.droid_compressor.library.entity
+package com.rodrigolmti.droid_compressor.compressor.model.entity
 
 import android.database.Cursor
 import android.provider.MediaStore

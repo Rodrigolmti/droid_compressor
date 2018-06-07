@@ -1,7 +1,7 @@
 package com.rodrigolmti.droid_compressor.compressor.view.activity.compress
 
 import android.content.Context
-import com.rodrigolmti.droid_compressor.library.entity.Image
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
 import com.rodrigolmti.droid_compressor.library.mvp.BasePresenterContract
 import com.rodrigolmti.droid_compressor.library.mvp.BaseView
 

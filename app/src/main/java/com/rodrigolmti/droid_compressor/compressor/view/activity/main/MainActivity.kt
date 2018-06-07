@@ -2,7 +2,9 @@ package com.rodrigolmti.droid_compressor.compressor.view.activity.main
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import com.rodrigolmti.droid_compressor.R
@@ -12,11 +14,13 @@ import com.rodrigolmti.droid_compressor.compressor.view.activity.compressed.Comp
 import com.rodrigolmti.droid_compressor.compressor.view.activity.images.ImagesActivity
 import com.rodrigolmti.droid_compressor.compressor.view.adapter.FolderAdapter
 import com.rodrigolmti.droid_compressor.library.base.activity.BaseActivity
-import com.rodrigolmti.droid_compressor.library.entity.Folder
-import com.rodrigolmti.droid_compressor.library.extensions.gone
-import com.rodrigolmti.droid_compressor.library.extensions.visible
-import com.rodrigolmti.droid_compressor.library.utils.DialogHelper
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Folder
+import com.rodrigolmti.droid_compressor.library.listener.PermissionAskListener
+import com.rodrigolmti.droid_compressor.library.utils.extensions.gone
+import com.rodrigolmti.droid_compressor.library.utils.extensions.visible
 import com.rodrigolmti.droid_compressor.library.utils.PermissionHelper
+import com.rodrigolmti.droid_compressor.library.utils.functions.displayMessage
+import com.rodrigolmti.droid_compressor.library.utils.functions.showConfirmation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_loading.*
@@ -75,7 +79,7 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
     }
 
     override fun onError() {
-        DialogHelper.displayMessage(this, getString(R.string.something_wrong_error), null)
+        displayMessage(this, getString(R.string.something_wrong_error), null)
     }
 
     override fun itemOnClick(item: Folder) {
@@ -90,18 +94,28 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
 
     private fun checkStoragePermission() {
         PermissionHelper.checkPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                object : PermissionHelper.PermissionAskListener {
+                object : PermissionAskListener {
                     override fun onPermissionAsk() {
                         ActivityCompat.requestPermissions(this@MainActivity,
                                 arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
                     }
 
                     override fun onPermissionPreviouslyDenied() {
-
+                        displayMessage(this@MainActivity, getString(R.string.activity_main_storage_permission), Runnable {
+                            ActivityCompat.requestPermissions(
+                                    this@MainActivity,
+                                    arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+                        })
                     }
 
                     override fun onPermissionDisabled() {
-
+                        displayMessage(this@MainActivity, getString(R.string.activity_main_storage_permission_error), Runnable {
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                            val uri = Uri.fromParts("package", "com.rodrigolmti.droid_compressor", null)
+                            intent.data = uri
+                            startActivity(intent)
+                        })
                     }
 
                     override fun onPermissionGranted() {
@@ -118,7 +132,7 @@ class MainActivity : BaseActivity<MainActivityContract.View, MainActivityContrac
             startActivity(Intent(this, CompressedActivity::class.java))
         })
         menuCompress.setOnClickListener({
-            DialogHelper.showConfirmation(this@MainActivity,
+            showConfirmation(this@MainActivity,
                     getString(R.string.activity_main_compress_confirmation),
                     getString(android.R.string.yes), Runnable {
                 startActivity(Intent(this, CompressActivity::class.java))

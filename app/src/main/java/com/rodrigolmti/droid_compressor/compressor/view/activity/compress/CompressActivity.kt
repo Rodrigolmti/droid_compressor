@@ -10,10 +10,10 @@ import com.rodrigolmti.droid_compressor.R
 import com.rodrigolmti.droid_compressor.compressor.manager.SelectedImagesManager
 import com.rodrigolmti.droid_compressor.compressor.view.adapter.ImageCompressedAdapter
 import com.rodrigolmti.droid_compressor.library.base.activity.BaseActivity
-import com.rodrigolmti.droid_compressor.library.entity.Image
-import com.rodrigolmti.droid_compressor.library.extensions.gone
-import com.rodrigolmti.droid_compressor.library.extensions.visible
-import com.rodrigolmti.droid_compressor.library.utils.DialogHelper
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
+import com.rodrigolmti.droid_compressor.library.utils.extensions.gone
+import com.rodrigolmti.droid_compressor.library.utils.extensions.visible
+import com.rodrigolmti.droid_compressor.library.utils.functions.displayMessage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_loading.*
 
@@ -42,7 +42,7 @@ class CompressActivity : BaseActivity<CompressActivityContract.View, CompressAct
         when (item?.itemId) {
             R.id.menu_share -> {
                 if (adapter.selectedImages.isEmpty()) {
-                    DialogHelper.displayMessage(this, getString(R.string.activity_compress_minimum_images), null)
+                    displayMessage(this, getString(R.string.activity_compress_minimum_images), null)
                 } else {
                     shareMultiple(adapter.selectedImages)
                 }
@@ -70,7 +70,7 @@ class CompressActivity : BaseActivity<CompressActivityContract.View, CompressAct
     }
 
     override fun onError() {
-        DialogHelper.displayMessage(this, getString(R.string.something_wrong_error), null)
+        displayMessage(this, getString(R.string.something_wrong_error), null)
     }
 
     private fun setup() {

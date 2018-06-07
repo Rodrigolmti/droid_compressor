@@ -1,7 +1,7 @@
 package com.rodrigolmti.droid_compressor.compressor.view.activity.main
 
 import android.content.Context
-import com.rodrigolmti.droid_compressor.library.entity.Folder
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Folder
 import com.rodrigolmti.droid_compressor.library.listener.FolderLoaderListener
 import com.rodrigolmti.droid_compressor.library.mvp.BasePresenter
 import com.rodrigolmti.droid_compressor.library.utils.runnables.FileLoader

@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.rodrigolmti.droid_compressor.R
-import com.rodrigolmti.droid_compressor.library.entity.Image
-import com.rodrigolmti.droid_compressor.library.extensions.gone
-import com.rodrigolmti.droid_compressor.library.extensions.visible
-import com.rodrigolmti.droid_compressor.library.utils.DateHelper
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
+import com.rodrigolmti.droid_compressor.library.utils.extensions.gone
+import com.rodrigolmti.droid_compressor.library.utils.extensions.visible
+import com.rodrigolmti.droid_compressor.library.utils.functions.dateToString
+import com.rodrigolmti.droid_compressor.library.utils.functions.full_date
 import kotlinx.android.synthetic.main.row_image_compressed.view.*
 import java.util.*
 
@@ -58,7 +59,7 @@ class ImageCompressedAdapter(private val context: Context, private val list: Lis
                 itemView.content.alpha = 1.0F
             }
             itemView.textViewName.text = item.name
-            itemView.textViewDate.text = DateHelper.dateToString(item.date, DateHelper.full_date)
+            itemView.textViewDate.text = dateToString(item.date, full_date)
             Glide.with(context).load(item.path).thumbnail(0.5f).into(itemView.imageView)
         }
     }

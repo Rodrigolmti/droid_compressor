@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.rodrigolmti.droid_compressor.R
 import com.rodrigolmti.droid_compressor.compressor.manager.SelectedImagesManager
-import com.rodrigolmti.droid_compressor.library.entity.Image
-import com.rodrigolmti.droid_compressor.library.extensions.gone
-import com.rodrigolmti.droid_compressor.library.extensions.visible
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
+import com.rodrigolmti.droid_compressor.library.utils.extensions.gone
+import com.rodrigolmti.droid_compressor.library.utils.extensions.visible
 import kotlinx.android.synthetic.main.row_image.view.*
 
 class ImageAdapter(private val context: Context, private val list: List<Image>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rodrigolmti.droid_compressor.R
-import com.rodrigolmti.droid_compressor.library.entity.Folder
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Folder
 import kotlinx.android.synthetic.main.row_folder.view.*
 
 open class FolderAdapter(private val context: Context, private val list: List<Folder>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

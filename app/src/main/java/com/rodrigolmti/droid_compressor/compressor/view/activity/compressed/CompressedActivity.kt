@@ -7,10 +7,11 @@ import android.view.MenuItem
 import com.rodrigolmti.droid_compressor.R
 import com.rodrigolmti.droid_compressor.compressor.view.adapter.ImageCompressedAdapter
 import com.rodrigolmti.droid_compressor.library.base.activity.BaseActivity
-import com.rodrigolmti.droid_compressor.library.entity.Image
-import com.rodrigolmti.droid_compressor.library.extensions.gone
-import com.rodrigolmti.droid_compressor.library.extensions.visible
-import com.rodrigolmti.droid_compressor.library.utils.DialogHelper
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
+import com.rodrigolmti.droid_compressor.library.utils.extensions.gone
+import com.rodrigolmti.droid_compressor.library.utils.extensions.visible
+import com.rodrigolmti.droid_compressor.library.utils.functions.displayMessage
+import com.rodrigolmti.droid_compressor.library.utils.functions.showConfirmation
 import kotlinx.android.synthetic.main.activity_compressed.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_loading.*
@@ -40,9 +41,9 @@ class CompressedActivity : BaseActivity<CompressedActivityContract.View, Compres
         when (item?.itemId) {
             R.id.menu_delete -> {
                 if (adapter.selectedImages.isEmpty()) {
-                    DialogHelper.displayMessage(this, getString(R.string.activity_compressed_delete_error), null)
+                    displayMessage(this, getString(R.string.activity_compressed_delete_error), null)
                 } else {
-                    DialogHelper.showConfirmation(this@CompressedActivity,
+                    showConfirmation(this@CompressedActivity,
                             getString(R.string.activity_compressed_delete_message),
                             getString(android.R.string.yes), Runnable {
                         mPresenter.deleteImages(adapter.selectedImages)
@@ -83,12 +84,12 @@ class CompressedActivity : BaseActivity<CompressedActivityContract.View, Compres
     }
 
     override fun onDeletedImages() {
-        DialogHelper.displayMessage(this, getString(R.string.activity_compressed_delete_message_success), null)
+        displayMessage(this, getString(R.string.activity_compressed_delete_message_success), null)
         mPresenter.loadCompressedImages(this)
     }
 
     override fun onError() {
-        DialogHelper.displayMessage(this, getString(R.string.something_wrong_error), null)
+        displayMessage(this, getString(R.string.something_wrong_error), null)
         recyclerView.gone()
         emptyView.visible()
     }

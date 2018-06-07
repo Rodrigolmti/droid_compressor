@@ -2,7 +2,7 @@ package com.rodrigolmti.droid_compressor.compressor.view.activity.compress
 
 import android.content.Context
 import com.rodrigolmti.droid_compressor.compressor.manager.SelectedImagesManager
-import com.rodrigolmti.droid_compressor.library.entity.Image
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
 import com.rodrigolmti.droid_compressor.library.listener.CompressLoadListener
 import com.rodrigolmti.droid_compressor.library.mvp.BasePresenter
 import com.rodrigolmti.droid_compressor.library.utils.runnables.CompressImages

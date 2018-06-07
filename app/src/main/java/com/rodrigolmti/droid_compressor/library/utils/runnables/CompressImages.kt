@@ -3,9 +3,9 @@ package com.rodrigolmti.droid_compressor.library.utils.runnables
 import android.content.Context
 import android.net.Uri
 import com.rodrigolmti.droid_compressor.compressor.manager.SelectedImagesManager
-import com.rodrigolmti.droid_compressor.library.entity.Image
+import com.rodrigolmti.droid_compressor.compressor.model.entity.Image
 import com.rodrigolmti.droid_compressor.library.listener.CompressLoadListener
-import com.rodrigolmti.droid_compressor.library.utils.BitmapHelper
+import com.rodrigolmti.droid_compressor.library.utils.functions.compressImage
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -36,7 +36,7 @@ class CompressImages internal constructor(private val context: Context) {
         try {
             val compressedImages: MutableList<Image> = ArrayList()
             for (image in SelectedImagesManager.images) {
-                compressedImages.add(Image(image.id, image.name, BitmapHelper.compressImage(context,
+                compressedImages.add(Image(image.id, image.name, compressImage(context,
                         Uri.parse(image.path).path), Date()))
             }
             listener.onImageCompressed(compressedImages)
